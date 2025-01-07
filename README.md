@@ -20,13 +20,12 @@ A modern and personalized study planner tailored for Nigerian university student
 
 ```
 src/
-├── components/ # Reusable UI components
-├── pages/      # Main pages of the application
-├── styles/     # Global styles and custom themes
-├── utils/      # Helper functions and utilities
-├── assets/     # Images and other static files
-├── App.tsx     # Main app component
-├── index.tsx   # Application entry point
+├── components/
+├── hooks/
+├── lib/
+├── pages/
+├── App.tsx   
+├── main.tsx 
 ```
 
 ## 🏃‍♀️ Getting Started
