@@ -63,28 +63,10 @@ npm run dev
 - `npm run build` - Builds the project for production.
 - `npm run lint` - Runs linting checks.
 
-## 🎨 Design Principles
-
-- **Accessibility First**: Designed to cater to all students.
-- **Relatability**: Built to resonate with Nigerian university culture.
-- **Simplicity**: Easy to navigate, even during stressful exam periods.
-
-## 📈 Roadmap
-
-- Integration with academic calendars for Nigerian universities.
-- Gamified study incentives (badges, points, and rewards).
-- Collaboration tools for group study planning.
-
 ## 🧑‍🤝‍🧑 Contributors
 
-- **Your Name** - Project Lead & Frontend Developer
-- **Other Contributors** (Add as needed)
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
+- **Abiodun Oluwamurewa** - Frontend Developer 
+- **Young Leslie** - Frontend Developer 
 
 ### 🌟 Support
 
