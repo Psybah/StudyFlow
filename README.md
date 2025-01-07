@@ -1,11 +1,3 @@
-### **Short Description**
-"A personalized study planner designed for Nigerian university students. Built with React, TypeScript, and ShadCN UI for seamless organization and productivity."
-
----
-
-### **README.md**
-
-```markdown
 # StudyFlow
 
 A modern and personalized study planner tailored for Nigerian university students to organize, plan, and optimize their academic workflows.
@@ -26,7 +18,7 @@ A modern and personalized study planner tailored for Nigerian university student
 
 ## 📂 Folder Structure
 
-```plaintext
+```
 src/
 ├── components/ # Reusable UI components
 ├── pages/      # Main pages of the application
