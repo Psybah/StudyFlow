@@ -11,6 +11,8 @@ import Features from "./pages/Features";
 import Planner from "./pages/Planner";
 import Community from "./pages/Community";
 import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,8 @@ const App = () => (
               <Route path="/planner" element={<Planner />} />
               <Route path="/community" element={<Community />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/auth" element={<Auth />} />
             </Routes>
           </main>
           <Footer />

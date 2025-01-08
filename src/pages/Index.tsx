@@ -1,8 +1,35 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BookOpen, Users, Clock, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useState, useEffect } from "react";
+import StudyPlanForm from "@/components/StudyPlanForm";
 
 const Index = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleGetStarted = () => {
+    if (!user) {
+      navigate("/auth");
+    } else {
+      setIsFormOpen(true);
+    }
+  };
+
   return (
     <div className="bg-background">
       {/* Hero Section */}
@@ -23,6 +50,7 @@ const Index = () => {
               <Button
                 size="lg"
                 className="bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={handleGetStarted}
               >
                 Start Your Study Plan
               </Button>
@@ -106,11 +134,17 @@ const Index = () => {
           <Button
             size="lg"
             className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+            onClick={handleGetStarted}
           >
             Get Started Now
           </Button>
         </div>
       </section>
+
+      <StudyPlanForm 
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+      />
     </div>
   );
 };

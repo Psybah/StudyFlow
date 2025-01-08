@@ -1,10 +1,50 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, BookOpen } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, BookOpen, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import StudyPlanForm from "@/components/StudyPlanForm";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleGetStarted = () => {
+    if (!user) {
+      navigate("/auth");
+    } else {
+      setIsFormOpen(true);
+    }
+  };
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        title: "Error signing out",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      navigate("/");
+    }
+  };
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -35,12 +75,33 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
-            <Button
-              variant="secondary"
-              className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-            >
-              Get Started
-            </Button>
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="secondary"
+                  className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                  onClick={handleGetStarted}
+                >
+                  Create Study Plan
+                </Button>
+                <Button
+                  variant="outline"
+                  className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground/10"
+                  onClick={handleSignOut}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="secondary"
+                className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                onClick={handleGetStarted}
+              >
+                Get Started
+              </Button>
+            )}
           </div>
 
           {/* Mobile Navigation Toggle */}
@@ -67,17 +128,51 @@ const Navigation = () => {
                   {item.name}
                 </Link>
               ))}
-              <Button
-                variant="secondary"
-                className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                onClick={() => setIsOpen(false)}
-              >
-                Get Started
-              </Button>
+              {user ? (
+                <>
+                  <Button
+                    variant="secondary"
+                    className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                    onClick={() => {
+                      setIsOpen(false);
+                      handleGetStarted();
+                    }}
+                  >
+                    Create Study Plan
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground/10"
+                    onClick={() => {
+                      setIsOpen(false);
+                      handleSignOut();
+                    }}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="secondary"
+                  className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                  onClick={() => {
+                    setIsOpen(false);
+                    handleGetStarted();
+                  }}
+                >
+                  Get Started
+                </Button>
+              )}
             </div>
           </div>
         )}
       </div>
+
+      <StudyPlanForm 
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+      />
     </nav>
   );
 };

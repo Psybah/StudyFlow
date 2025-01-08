@@ -1,73 +1,69 @@
-# StudyFlow
+# Welcome to your Lovable project
 
-A modern and personalized study planner tailored for Nigerian university students to organize, plan, and optimize their academic workflows.
+## Project info
 
-## 🚀 Features
+**URL**: https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3
 
-- Personalized study schedules based on user input.
-- Interactive dashboard for task management and progress tracking.
-- Responsive design for seamless use across devices.
-- Modern UI built with **ShadCN** and **Lucide icons** for a sleek and intuitive experience.
+## How can I edit this code?
 
-## 🛠️ Built With
+There are several ways of editing your application.
 
-- **React.js**: For building a fast and dynamic user interface.
-- **TypeScript**: Ensuring type safety and scalability.
-- **ShadCN UI**: For an elegant, pre-styled component library.
-- **Lucide**: Icon library for visually engaging elements.
+**Use Lovable**
 
-## 📂 Folder Structure
+Simply visit the [Lovable Project](https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3) and start prompting.
 
-```
-src/
-├── components/ # Reusable UI components
-├── pages/      # Main pages of the application
-├── styles/     # Global styles and custom themes
-├── utils/      # Helper functions and utilities
-├── assets/     # Images and other static files
-├── App.tsx     # Main app component
-├── index.tsx   # Application entry point
-```
+Changes made via Lovable will be committed automatically to this repo.
 
-## 🏃‍♀️ Getting Started
+**Use your preferred IDE**
 
-### Prerequisites
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-- Node.js (v16 or higher)
-- npm or yarn
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-### Installation
+Follow these steps:
 
-1. Clone the repository:
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-```bash
-git clone https://github.com/psybah/studyflow.git
-cd studyflow
-```
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-2. Install dependencies:
+# Step 3: Install the necessary dependencies.
+npm i
 
-```bash
-npm install
-```
-
-3. Start the development server:
-
-```bash
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-### Scripts
+**Edit a file directly in GitHub**
 
-- `npm run dev` - Starts the development server.
-- `npm run build` - Builds the project for production.
-- `npm run lint` - Runs linting checks.
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-## 🧑‍🤝‍🧑 Contributors
+**Use GitHub Codespaces**
 
-- **Abiodun Oluwamurewa** - Frontend Developer 
-- **Young Leslie** - Frontend Developer 
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-### 🌟 Support
+## What technologies are used for this project?
 
-If you find this project useful, give it a ⭐️ and share it with your network!
+This project is built with .
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3) and click on Share -> Publish.
+
+## I want to use a custom domain - is that possible?
+
+We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)

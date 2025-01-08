@@ -85,7 +85,7 @@ const About = () => {
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
           StudyFlow was created by a passionate team of educators, developers, and 
           students who understand the challenges of education in Nigeria. Together, 
-          we're building tools that make learning more effective and enjoyable.
+          we're building tools that make learning more effective.
         </p>
       </div>
     </div>

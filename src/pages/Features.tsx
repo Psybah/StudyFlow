@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Calendar, Bell, Folder, Users, BarChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import StudyPlanForm from "@/components/StudyPlanForm";
 
 const Features = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   const features = [
     {
       icon: <Calendar className="h-8 w-8" />,
@@ -58,7 +62,10 @@ const Features = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-lg mb-6">{feature.description}</p>
-                  <Button variant="secondary">
+                  <Button 
+                    variant="secondary"
+                    onClick={() => setIsFormOpen(true)}
+                  >
                     Try This Feature
                   </Button>
                 </CardContent>
@@ -76,6 +83,11 @@ const Features = () => {
           </div>
         ))}
       </div>
+
+      <StudyPlanForm 
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+      />
     </div>
   );
 };
