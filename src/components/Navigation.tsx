@@ -1,29 +1,80 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, BookOpen, LogOut } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, BookOpen } from "lucide-react";
 import StudyPlanForm from "@/components/StudyPlanForm";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import DesktopNav from "./navigation/DesktopNav";
+import MobileMenu from "./navigation/MobileMenu";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [hasStudyPlan, setHasStudyPlan] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
+    const setupAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
+        if (session?.user) {
+          await checkStudyPlan(session.user.id);
+        }
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+          setUser(session?.user ?? null);
+          if (session?.user) {
+            await checkStudyPlan(session.user.id);
+          }
+        });
 
-    return () => subscription.unsubscribe();
-  }, []);
+        return () => subscription.unsubscribe();
+      } catch (error) {
+        console.error('Error in setupAuth:', error);
+        toast({
+          title: "Error",
+          description: "Failed to initialize authentication. Please try again later.",
+          variant: "destructive",
+        });
+      }
+    };
+
+    setupAuth();
+  }, [toast]);
+
+  const checkStudyPlan = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('study_plans')
+        .select('id')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(1);
+        
+      if (error) {
+        console.error('Error checking study plan:', error);
+        toast({
+          title: "Error",
+          description: "Failed to check study plan status. Please try again later.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      setHasStudyPlan(data && data.length > 0);
+    } catch (error) {
+      console.error('Error checking study plan:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again later.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const handleGetStarted = () => {
     if (!user) {
@@ -33,30 +84,12 @@ const Navigation = () => {
     }
   };
 
-  const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      toast({
-        title: "Error signing out",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      navigate("/");
-    }
-  };
-
-  const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Features", path: "/features" },
-    { name: "Study Planner", path: "/planner" },
-    { name: "Community", path: "/community" },
-    { name: "Contact", path: "/contact" },
-  ];
+  if (location.pathname.includes('/dashboard')) {
+    return null;
+  }
 
   return (
-    <nav className="bg-primary text-primary-foreground py-4 fixed w-full top-0 z-50">
+    <nav className="bg-primary text-white py-4 fixed w-full top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
@@ -64,47 +97,12 @@ const Navigation = () => {
             <span className="text-xl font-bold">StudyFlow</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="hover:text-secondary transition-colors"
-              >
-                {item.name}
-              </Link>
-            ))}
-            {user ? (
-              <div className="flex items-center space-x-4">
-                <Button
-                  variant="secondary"
-                  className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                  onClick={handleGetStarted}
-                >
-                  Create Study Plan
-                </Button>
-                <Button
-                  variant="outline"
-                  className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground/10"
-                  onClick={handleSignOut}
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
-                </Button>
-              </div>
-            ) : (
-              <Button
-                variant="secondary"
-                className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                onClick={handleGetStarted}
-              >
-                Get Started
-              </Button>
-            )}
-          </div>
+          <DesktopNav 
+            user={user}
+            hasStudyPlan={hasStudyPlan}
+            onGetStarted={handleGetStarted}
+          />
 
-          {/* Mobile Navigation Toggle */}
           <button
             className="md:hidden"
             onClick={() => setIsOpen(!isOpen)}
@@ -114,59 +112,13 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation Menu */}
-        {isOpen && (
-          <div className="md:hidden mt-4 animate-fade-in">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="hover:text-secondary transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              {user ? (
-                <>
-                  <Button
-                    variant="secondary"
-                    className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                    onClick={() => {
-                      setIsOpen(false);
-                      handleGetStarted();
-                    }}
-                  >
-                    Create Study Plan
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground/10"
-                    onClick={() => {
-                      setIsOpen(false);
-                      handleSignOut();
-                    }}
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Sign Out
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  variant="secondary"
-                  className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                  onClick={() => {
-                    setIsOpen(false);
-                    handleGetStarted();
-                  }}
-                >
-                  Get Started
-                </Button>
-              )}
-            </div>
-          </div>
-        )}
+        <MobileMenu 
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          user={user}
+          hasStudyPlan={hasStudyPlan}
+          onGetStarted={handleGetStarted}
+        />
       </div>
 
       <StudyPlanForm 
