@@ -15,6 +15,13 @@ const MobileMenu = ({ isOpen, onClose, user, hasStudyPlan, onGetStarted }: Mobil
   return (
     <div className="md:hidden mt-4 animate-fade-in">
       <div className="flex flex-col space-y-4">
+      <Link
+          to="/"
+          className="hover:text-white/90 transition-colors"
+          onClick={onClose}
+        >
+          Home
+        </Link>
         <Link
           to="/about"
           className="hover:text-white/90 transition-colors"

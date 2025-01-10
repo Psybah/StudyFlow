@@ -65,7 +65,7 @@ const Index = () => {
           </div>
           <div className="hidden md:block">
             <img
-              src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7"
+              src="/image.png"
               alt="Student studying"
               className="rounded-lg shadow-xl"
             />

@@ -16,7 +16,7 @@ const AuthButtons = ({ user, hasStudyPlan, onGetStarted }: AuthButtonsProps) => 
         hasStudyPlan ? (
           <Button
             variant="secondary"
-            className="bg-white text-[#9b87f5] hover:bg-white/90"
+            className="bg-white text-[#1A5D1A] hover:bg-white/90"
             onClick={() => navigate('/dashboard')}
           >
             Dashboard
@@ -24,7 +24,7 @@ const AuthButtons = ({ user, hasStudyPlan, onGetStarted }: AuthButtonsProps) => 
         ) : (
           <Button
             variant="secondary"
-            className="bg-white text-[#9b87f5] hover:bg-white/90"
+            className="bg-white text-[#1A5D1A] hover:bg-white/90"
             onClick={onGetStarted}
           >
             Create Study Plan

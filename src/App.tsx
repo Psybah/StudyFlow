@@ -17,7 +17,7 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const location = useLocation();
-  const showFooter = !location.pathname.includes('/auth');
+  const showFooter = !location.pathname.includes('/auth') && !location.pathname.includes('/dashboard');
 
   return (
     <div className="flex flex-col min-h-screen">

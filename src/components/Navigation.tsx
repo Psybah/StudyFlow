@@ -84,7 +84,7 @@ const Navigation = () => {
     }
   };
 
-  if (location.pathname.includes('/dashboard')) {
+  if (location.pathname.includes('/auth')) {
     return null;
   }
 

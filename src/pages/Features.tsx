@@ -12,31 +12,31 @@ const Features = () => {
       icon: <Calendar className="h-8 w-8" />,
       title: "Study Planner",
       description: "Create and manage personalized study schedules that adapt to your learning pace and goals.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      image: "study.svg",
     },
     {
       icon: <Bell className="h-8 w-8" />,
       title: "Smart Reminders",
       description: "AI-powered notifications that keep you on track with your study goals and deadlines.",
-      image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81",
+      image: "/notification.svg",
     },
     {
       icon: <Folder className="h-8 w-8" />,
       title: "Content Organization",
       description: "Efficiently organize and retrieve your study materials with smart tagging and categorization.",
-      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+      image: "/content.svg",
     },
     {
       icon: <Users className="h-8 w-8" />,
       title: "Group Collaboration",
       description: "Connect with peers, form study groups, and share resources seamlessly.",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      image: "/collaboration.svg",
     },
     {
       icon: <BarChart className="h-8 w-8" />,
       title: "Progress Tracking",
       description: "Visualize your learning journey with detailed analytics and performance insights.",
-      image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
+      image: "/progress.svg",
     },
   ];
 
@@ -76,7 +76,7 @@ const Features = () => {
                 <img 
                   src={feature.image}
                   alt={feature.title}
-                  className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+                  className=" w-full h-full"
                 />
               </div>
             </div>

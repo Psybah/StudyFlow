@@ -10,6 +10,9 @@ interface DesktopNavProps {
 const DesktopNav = ({ user, hasStudyPlan, onGetStarted }: DesktopNavProps) => {
   return (
     <div className="hidden md:flex items-center space-x-8">
+      <Link to="/" className="hover:text-white/90 transition-colors">
+        Home
+      </Link>
       <Link to="/about" className="hover:text-white/90 transition-colors">
         About
       </Link>

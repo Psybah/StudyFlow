@@ -23,7 +23,7 @@ const About = () => {
         </div>
         <div className="relative h-[300px] rounded-lg overflow-hidden">
           <img 
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+            src="/UI.jpg"
             alt="Students using StudyFlow"
             className="object-cover w-full h-full"
           />

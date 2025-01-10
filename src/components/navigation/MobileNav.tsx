@@ -6,7 +6,7 @@ const MobileNav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#9b87f5] text-white border-t">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#FEF7CD] text-background-darker border-t">
       <div className="flex justify-around p-2">
         <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')}>
           <BookOpen className="h-5 w-5" />

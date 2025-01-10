@@ -97,12 +97,12 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="flex h-screen">
+      <div className="flex">
         <aside className="hidden md:flex w-60">
           <SidebarNav />
         </aside>
 
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-12">
           <div className="max-w-4xl mx-auto space-y-8">
             <DashboardGreeting nickname={studyPlan?.nickname} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
