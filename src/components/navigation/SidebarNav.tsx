@@ -22,8 +22,8 @@ const SidebarNav = () => {
   };
 
   return (
-    <nav className="flex flex-col h-full justify-between bg-[#FEF7CD] shadow-lg text-background-darker w-64">
-      <div className="flex flex-col space-y-2 p-4">
+    <nav className="flex flex-col h-screen bg-[#FEF7CD] shadow-lg text-background-darker w-64 fixed">
+      <div className="flex flex-col space-y-2 p-4 flex-grow">
         <Button
           variant="ghost"
           className="w-full justify-start text-background-darker hover:bg-background-darker/10"

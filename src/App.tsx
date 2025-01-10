@@ -12,12 +12,13 @@ import Community from "./pages/Community";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
+import CourseMaterials from "./pages/CourseMaterials";
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const location = useLocation();
-  const showFooter = !location.pathname.includes('/auth') && !location.pathname.includes('/dashboard');
+  const showFooter = !location.pathname.includes('/auth') && !location.pathname.includes('/dashboard') && !location.pathname.includes('/materials');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -31,6 +32,7 @@ const AppContent = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/materials" element={<CourseMaterials />} />
         </Routes>
       </main>
       {showFooter && <Footer />}
@@ -38,16 +40,18 @@ const AppContent = () => {
   );
 };
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  return (
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <AppContent />
+          <Toaster />
+          <Sonner />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
+  );
+};
 
 export default App;
