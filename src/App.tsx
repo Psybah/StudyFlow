@@ -13,12 +13,18 @@ import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./pages/Auth";
 import CourseMaterials from "./pages/CourseMaterials";
+import Reminders from "./pages/Reminders";
+import Progress from "./pages/Progress";
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const location = useLocation();
-  const showFooter = !location.pathname.includes('/auth') && !location.pathname.includes('/dashboard') && !location.pathname.includes('/materials');
+  const showFooter = !location.pathname.includes('/auth') && 
+                    !location.pathname.includes('/dashboard') && 
+                    !location.pathname.includes('/materials') &&
+                    !location.pathname.includes('/reminders') &&
+                    !location.pathname.includes('/progress');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -33,6 +39,8 @@ const AppContent = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/materials" element={<CourseMaterials />} />
+          <Route path="/reminders" element={<Reminders />} />
+          <Route path="/progress" element={<Progress />} />
         </Routes>
       </main>
       {showFooter && <Footer />}
