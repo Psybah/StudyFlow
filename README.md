@@ -80,10 +80,6 @@ src/
 - **Abiodun Oluwamurewa** - Frontend Developer
 - **Leslie Young** - Frontend Developer
 
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ## 🌟 Support
 
 If you find this project useful, give it a ⭐️ and share it with your network!
