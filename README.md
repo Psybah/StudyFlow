@@ -1,69 +1,81 @@
-# Welcome to your Lovable project
+### *Short Description*  
+"A personalized study planner designed for Nigerian university students. Built with React, TypeScript, and ShadCN UI for seamless organization and productivity."  
 
-## Project info
 
-**URL**: https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3
+### *README.md*  
 
-## How can I edit this code?
+markdown
+# StudyFlow  
+A modern and personalized study planner tailored for Nigerian university students to organize, plan, and optimize their academic workflows.  
 
-There are several ways of editing your application.
+## 🚀 Features  
+- Personalized study schedules based on user input.  
+- Interactive dashboard for task management and progress tracking.  
+- Responsive design for seamless use across devices.  
+- Modern UI built with **ShadCN** and **Lucide icons** for a sleek and intuitive experience.  
 
-**Use Lovable**
+## 🛠️ Built With  
+- **React.js**: For building a fast and dynamic user interface.  
+- **TypeScript**: Ensuring type safety and scalability.  
+- **ShadCN UI**: For an elegant, pre-styled component library.  
+- **Lucide**: Icon library for visually engaging elements.  
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3) and start prompting.
+## 📂 Folder Structure  
+plaintext
+src/
+├── components/      # Reusable UI components
+├── pages/           # Main pages of the application
+├── styles/          # Global styles and custom themes
+├── utils/           # Helper functions and utilities
+├── assets/          # Images and other static files
+├── App.tsx          # Main app component
+├── index.tsx        # Application entry point
 
-Changes made via Lovable will be committed automatically to this repo.
 
-**Use your preferred IDE**
+## 🏃‍♀️ Getting Started  
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites  
+- Node.js (v16 or higher)  
+- npm or yarn  
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation  
+1. Clone the repository:  
+   bash
+   git clone https://github.com/Psybah/studyflow.git
+   cd studyflow
+     
+2. Install dependencies:  
+   bash
+   npm install
+     
 
-Follow these steps:
+3. Start the development server:  
+   bash
+   npm run dev
+     
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Scripts  
+- `npm run dev` - Starts the development server.  
+- `npm run build` - Builds the project for production.  
+- `npm run lint` - Runs linting checks.  
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🎨 Design Principles  
+- **Accessibility First**: Designed to cater to all students.  
+- **Relatability**: Built to resonate with Nigerian university culture.  
+- **Simplicity**: Easy to navigate, even during stressful exam periods.  
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 📈 Roadmap  
+- Integration with academic calendars for Nigerian universities.  
+- Gamified study incentives (badges, points, and rewards).  
+- Collaboration tools for group study planning.  
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## 🧑‍🤝‍🧑 Contributors  
+- **Your Name** - Project Lead & Frontend Developer  
+- **Other Contributors** (Add as needed)  
 
-**Edit a file directly in GitHub**
+## 📄 License  
+This project is licensed under the [MIT License](LICENSE).  
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+### 🌟 Support  
+If you find this project useful, give it a ⭐️ and share it with your network! 
