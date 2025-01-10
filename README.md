@@ -1,85 +1,69 @@
-# StudyFlow
+# Welcome to your Lovable project
 
-A modern and personalized study planner tailored for Nigerian university students to organize, plan, and optimize their academic workflows.
+## Project info
 
-## 🚀 Features
+**URL**: https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3
 
-- **Personalized study schedules**: Based on user input.
-- **Interactive dashboard**: For task management and progress tracking.
-- **Responsive design**: Seamless use across devices.
-- **Modern UI**: Built with **ShadCN** and **Lucide icons** for a sleek and intuitive experience.
+## How can I edit this code?
 
-## 🛠️ Built With
+There are several ways of editing your application.
 
-- **React.js**: For building a fast and dynamic user interface.
-- **TypeScript**: Ensuring type safety and scalability.
-- **ShadCN UI**: For an elegant, pre-styled component library.
-- **Lucide**: Icon library for visually engaging elements.
+**Use Lovable**
 
-## 📂 Folder Structure
+Simply visit the [Lovable Project](https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3) and start prompting.
 
+Changes made via Lovable will be committed automatically to this repo.
+
+**Use your preferred IDE**
+
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
 ```
-src/
-├── components/      # Reusable UI components
-├── pages/           # Main pages of the application
-├── styles/          # Global styles and custom themes
-├── utils/           # Helper functions and utilities
-├── assets/          # Images and other static files
-├── App.tsx          # Main app component
-├── index.tsx        # Application entry point
-```
 
-## 🏃‍♀️ Getting Started
+**Edit a file directly in GitHub**
 
-### Prerequisites
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-- Node.js (v16 or higher)
-- npm or yarn
+**Use GitHub Codespaces**
 
-### Installation
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-1. Clone the repository:
+## What technologies are used for this project?
 
-   ```bash
-   git clone https://github.com/Psybah/studyflow.git
-   cd studyflow
-   ```
+This project is built with .
 
-2. Install dependencies:
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-   ```bash
-   npm install
-   ```
+## How can I deploy this project?
 
-3. Start the development server:
+Simply open [Lovable](https://lovable.dev/projects/794175ba-64bb-4151-ad40-b64787425ec3) and click on Share -> Publish.
 
-   ```bash
-   npm run dev
-   ```
+## I want to use a custom domain - is that possible?
 
-### Scripts
-
-- `npm run dev` - Starts the development server.
-- `npm run build` - Builds the project for production.
-- `npm run lint` - Runs linting checks.
-
-## 🎨 Design Principles
-
-- **Accessibility First**: Designed to cater to all students.
-- **Relatability**: Built to resonate with Nigerian university culture.
-- **Simplicity**: Easy to navigate, even during stressful exam periods.
-
-## 📈 Roadmap
-
-- Integration with academic calendars for Nigerian universities.
-- Gamified study incentives (badges, points, and rewards).
-- Collaboration tools for group study planning.
-
-## 🧑‍🤝‍🧑 Contributors
-
-- **Abiodun Oluwamurewa** - Frontend Developer
-- **Leslie Young** - Frontend Developer
-
-## 🌟 Support
-
-If you find this project useful, give it a ⭐️ and share it with your network!
+We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
