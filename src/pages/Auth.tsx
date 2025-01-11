@@ -4,7 +4,6 @@ import { Auth as SupabaseAuth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/integrations/supabase/client";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import DesktopNav from "@/components/navigation/DesktopNav";
 import type { AuthError, AuthApiError } from "@supabase/supabase-js";
 
 const Auth = () => {
@@ -30,37 +29,41 @@ const Auth = () => {
   }, [navigate]);
 
   return (
-    <>
-      <DesktopNav />
-      <div className="flex flex-col justify-center min-h-[calc(100vh-4rem)] px-4">
-        <div className="container max-w-md mx-auto">
-          <h1 className="text-2xl font-bold text-center mb-8">Welcome to StudyFlow</h1>
-          {errorMessage && (
-            <Alert variant="destructive" className="mb-4">
-              <AlertDescription>{errorMessage}</AlertDescription>
-            </Alert>
-          )}
-          <div className="bg-card p-6 rounded-lg shadow-lg">
-            <SupabaseAuth 
-              supabaseClient={supabase}
-              appearance={{ 
-                theme: ThemeSupa,
-                variables: {
-                  default: {
-                    colors: {
-                      brand: 'rgb(var(--primary))',
-                      brandAccent: 'rgb(var(--primary))',
-                    }
+    <div className="flex flex-col justify-center min-h-[calc(100vh-4rem)] px-4">
+      <div className="container max-w-md mx-auto">
+        <h1 className="text-2xl font-bold text-center mb-8">Welcome to StudyFlow</h1>
+        {errorMessage && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertDescription>{errorMessage}</AlertDescription>
+          </Alert>
+        )}
+        <div className="bg-card p-6 rounded-lg shadow-lg">
+          <SupabaseAuth 
+            supabaseClient={supabase}
+            appearance={{ 
+              theme: ThemeSupa,
+              variables: {
+                default: {
+                  colors: {
+                    brand: 'rgb(var(--primary))',
+                    brandAccent: 'rgb(var(--primary))',
                   }
                 }
-              }}
-              theme="light"
-              providers={[]}
-            />
-          </div>
+              }
+            }}
+            theme="light"
+            providers={[]}
+          />
         </div>
+        {/* Back button */}
+        <button 
+          onClick={() => navigate("/")} 
+          className="mt-4 px-4 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-700"
+        >
+          Back to Home
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 
