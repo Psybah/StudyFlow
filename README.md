@@ -4,29 +4,35 @@ A modern and personalized study planner tailored for Nigerian university student
 
 ## 🚀 Features
 
-- **Personalized study schedules**: Based on user input.
-- **Interactive dashboard**: For task management and progress tracking.
-- **Responsive design**: Seamless use across devices.
-- **Modern UI**: Built with **ShadCN** and **Lucide icons** for a sleek and intuitive experience.
+- **Personalized Study Plans**: Users can input preferences like study styles, courses, and goals to generate tailored study plans.
+- **Task Management**: An interactive dashboard to add, view, and manage daily academic tasks and reminders.
+- **Course Materials**: Easily access, upload, and manage course-related content in one place.
+- **Progress Tracking**: Monitor your academic progress visually and in real-time.
+- **Reminders**: Stay on top of deadlines and important tasks with timely reminders.
+- **Settings Management**: Customize your experience and manage account settings effortlessly.
 
-## 🛠️ Built With
+
+## 🔧 Built With
 
 - **React.js**: For building a fast and dynamic user interface.
 - **TypeScript**: Ensuring type safety and scalability.
 - **ShadCN UI**: For an elegant, pre-styled component library.
 - **Lucide**: Icon library for visually engaging elements.
+- **Supabase**: For managing authentication and backend data storage.
+- **TanStack React Query**: For efficient data fetching and caching.
 
-## 📂 Folder Structure
+## 🗂 Folder Structure
 
 ```
 src/
-├── components/  
-├── hooks/
-├── integrations/supabase 
-├── lib/
-├── pages/
-├── App.tsx
-├── main.tsx
+├── components/            # Reusable UI components.
+├── hooks/                 # Custom React hooks for app functionality.
+├── integrations/supabase  # Supabase client setup for database and authentication.
+├── lib/                   # Utility functions and helpers.
+├── pages/                 # Page components representing different routes.
+├── types/                 # TypeScript interfaces and type definitions.
+├── App.tsx                # Main application component.
+├── main.tsx               # Entry point for React rendering.
 ```
 
 ## 🏃‍♀️ Getting Started
@@ -69,15 +75,16 @@ src/
 - **Relatability**: Built to resonate with Nigerian university culture.
 - **Simplicity**: Easy to navigate, even during stressful exam periods.
 
-## 📈 Roadmap
+## 📈 Future Features
 
-- Integration with academic calendars for Nigerian universities.
-- Gamified study incentives (badges, points, and rewards).
-- Collaboration tools for group study planning.
+- **Integration with Academic Calendars**: Automatically sync with university schedules for better planning.
+- **Gamified Study Incentives**: Introduce badges, points, and rewards to motivate students.
+- **Collaboration Tools**: Enable group study planning and sharing tasks among peers.
+- **AI-Powered Features**: Generate summaries of course materials and provide quizzes to aid comprehension.
 
-## 🧑‍🤝‍🧑 Contributors
+## 🤝 Contributors
 
-- **Abiodun Oluwamurewa** - Frontend Developer
+- **Abiodun Oluwamurewa** - Fullstack Developer
 - **Leslie Young** - Frontend Developer
 
 ## 🌟 Support
