@@ -15,6 +15,7 @@ import Auth from "./pages/Auth";
 import CourseMaterials from "./pages/CourseMaterials";
 import Reminders from "./pages/Reminders";
 import Progress from "./pages/Progress";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +25,8 @@ const AppContent = () => {
                     !location.pathname.includes('/dashboard') && 
                     !location.pathname.includes('/materials') &&
                     !location.pathname.includes('/reminders') &&
-                    !location.pathname.includes('/progress');
+                    !location.pathname.includes('/progress') &&
+                    !location.pathname.includes('/settings');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -41,6 +43,7 @@ const AppContent = () => {
           <Route path="/materials" element={<CourseMaterials />} />
           <Route path="/reminders" element={<Reminders />} />
           <Route path="/progress" element={<Progress />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
       {showFooter && <Footer />}

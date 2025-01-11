@@ -8,15 +8,17 @@ import MobileNav from "@/components/navigation/MobileNav";
 import ProgressOverview from "@/components/progress/ProgressOverview";
 import StudyChart from "@/components/progress/StudyChart";
 import TasksChart from "@/components/progress/TasksChart";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Progress = () => {
   const [timeframe, setTimeframe] = useState("week");
+  const isMobile = useIsMobile();
 
   const { data: tasks } = useQuery({
-    queryKey: ["tasks"],
+    queryKey: ["reminders"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("tasks")
+        .from("reminders")
         .select("*")
         .order("created_at", { ascending: false });
       
@@ -39,10 +41,11 @@ const Progress = () => {
   });
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex min-h-screen bg-background">
+      {!isMobile && <div className="w-64 transition-all duration-300" />}
       <SidebarNav />
       
-      <main className="flex-1 overflow-y-auto p-6">
+      <main className="flex-1 overflow-y-auto p-6 md:p-12 pb-24 md:pb-12">
         <div className="container mx-auto space-y-8">
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold text-primary">Progress</h1>
@@ -83,7 +86,8 @@ const Progress = () => {
         </div>
       </main>
 
-      <MobileNav />
+      {isMobile && <div className="h-20" />}
+      {isMobile && <MobileNav />}
     </div>
   );
 };

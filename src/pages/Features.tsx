@@ -1,11 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Calendar, Bell, Folder, Users, BarChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import StudyPlanForm from "@/components/StudyPlanForm";
+import { supabase } from "@/integrations/supabase/client";
 
 const Features = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleFeatureClick = () => {
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to access this feature.",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+    navigate("/dashboard");
+  };
 
   const features = [
     {
@@ -64,7 +91,7 @@ const Features = () => {
                   <p className="text-lg mb-6">{feature.description}</p>
                   <Button 
                     variant="secondary"
-                    onClick={() => setIsFormOpen(true)}
+                    onClick={handleFeatureClick}
                   >
                     Try This Feature
                   </Button>
@@ -76,7 +103,7 @@ const Features = () => {
                 <img 
                   src={feature.image}
                   alt={feature.title}
-                  className=" w-full h-full"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>

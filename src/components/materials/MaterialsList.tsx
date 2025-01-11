@@ -23,9 +23,10 @@ interface Material {
 
 interface MaterialsListProps {
   materials: Material[];
+  onAddClick?: () => void;
 }
 
-const MaterialsList = ({ materials }: MaterialsListProps) => {
+const MaterialsList = ({ materials, onAddClick }: MaterialsListProps) => {
   const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const { toast } = useToast();
@@ -62,6 +63,14 @@ const MaterialsList = ({ materials }: MaterialsListProps) => {
 
   return (
     <>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">Course Materials</h2>
+        {onAddClick && (
+          <Button onClick={onAddClick}>
+            Add Material
+          </Button>
+        )}
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {materials.map((material) => (
           <Card key={material.id} className="flex flex-col cursor-pointer hover:shadow-lg transition-shadow"
@@ -92,49 +101,49 @@ const MaterialsList = ({ materials }: MaterialsListProps) => {
               </div>
             </CardHeader>
             <CardContent className="flex-grow">
-            {material.description && (
-              <p className="text-sm text-gray-500 line-clamp-3 mb-4">
-                {material.description}
-              </p>
-            )}
-            {material.file_url && material.file_type === "application/pdf" && (
-              <div className="mb-4 border rounded-lg overflow-hidden" style={{ height: '200px' }}>
-                <iframe
-                  src={material.file_url}
-                  className="w-full h-full"
-                  title={material.title}
-                />
-              </div>
-            )}
-            <div className="space-y-4">
-              {material.subject && (
-                <Badge variant="secondary" className="mr-2">
-                  {material.subject}
-                </Badge>
+              {material.description && (
+                <p className="text-sm text-gray-500 line-clamp-3 mb-4">
+                  {material.description}
+                </p>
               )}
-              {material.file_type && (
-                <Badge variant="outline" className="mr-2">
-                  <FileText className="h-3 w-3 mr-1" />
-                  {material.file_type.split('/')[1].toUpperCase()}
-                </Badge>
+              {material.file_url && material.file_type === "application/pdf" && (
+                <div className="mb-4 border rounded-lg overflow-hidden" style={{ height: '200px' }}>
+                  <iframe
+                    src={material.file_url}
+                    className="w-full h-full"
+                    title={material.title}
+                  />
+                </div>
               )}
-              {material.external_link && (
-                <Badge variant="outline">
-                  <LinkIcon className="h-3 w-3 mr-1" />
-                  External Link
-                </Badge>
-              )}
-              <div className="flex flex-wrap gap-2">
-                {material.tags?.map((tag) => (
-                  <Badge key={tag} variant="outline">
-                    {tag}
+              <div className="space-y-4">
+                {material.subject && (
+                  <Badge variant="secondary" className="mr-2">
+                    {material.subject}
                   </Badge>
-                ))}
+                )}
+                {material.file_type && (
+                  <Badge variant="outline" className="mr-2">
+                    <FileText className="h-3 w-3 mr-1" />
+                    {material.file_type.split('/')[1].toUpperCase()}
+                  </Badge>
+                )}
+                {material.external_link && (
+                  <Badge variant="outline">
+                    <LinkIcon className="h-3 w-3 mr-1" />
+                    External Link
+                  </Badge>
+                )}
+                <div className="flex flex-wrap gap-2">
+                  {material.tags?.map((tag) => (
+                    <Badge key={tag} variant="outline">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+                <p className="text-xs text-gray-500">
+                  Added {format(new Date(material.created_at), "MMM d, yyyy")}
+                </p>
               </div>
-              <p className="text-xs text-gray-500">
-                Added {format(new Date(material.created_at), "MMM d, yyyy")}
-              </p>
-            </div>
             </CardContent>
           </Card>
         ))}

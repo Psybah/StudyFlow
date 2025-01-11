@@ -7,8 +7,8 @@ const MobileNav = () => {
   const location = useLocation();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#FEF7CD] text-background-darker border-t">
-      <div className="flex justify-around p-2">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#FEF7CD] text-background-darker border-t z-50">
+      <div className="flex justify-around p-4">
         <Button 
           variant={location.pathname === '/dashboard' ? "default" : "ghost"} 
           size="icon" 

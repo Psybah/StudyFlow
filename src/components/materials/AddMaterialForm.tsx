@@ -7,15 +7,16 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { FileText, Upload } from "lucide-react";
+import { FileText } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface AddMaterialFormProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
 }
 
-const AddMaterialForm = ({ isOpen, onClose }: AddMaterialFormProps) => {
+const AddMaterialForm = ({ isOpen, onClose, onSuccess }: AddMaterialFormProps) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,6 +95,7 @@ const AddMaterialForm = ({ isOpen, onClose }: AddMaterialFormProps) => {
       });
 
       queryClient.invalidateQueries({ queryKey: ["materials"] });
+      onSuccess?.();
       onClose();
       
       // Cleanup preview URL

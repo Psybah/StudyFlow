@@ -5,7 +5,7 @@ interface Task {
   title: string;
   due_date: string;
   status: string;
-  course: string;
+  course?: string;
 }
 
 interface TasksOverviewProps {
@@ -27,9 +27,11 @@ const TasksOverview = ({ tasks }: TasksOverviewProps) => {
                 className="flex items-center justify-between p-3 rounded-lg bg-secondary/10"
               >
                 <span className="font-medium">{task.title}</span>
-                <span className="text-sm text-muted-foreground">
-                  {task.course}
-                </span>
+                {task.course && (
+                  <span className="text-sm text-muted-foreground">
+                    {task.course}
+                  </span>
+                )}
               </li>
             ))}
           </ul>
