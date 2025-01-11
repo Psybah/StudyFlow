@@ -59,7 +59,7 @@ const Auth = () => {
         {/* Back button with Chevron Left icon */}
         <button 
           onClick={() => navigate("/")} 
-          className="mt-4 px-4 py-2 bg-primary-foreground hover:bg-primary/90 text-white rounded-full flex items-center space-x-2"
+          className="mt-4 px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-full flex items-center space-x-2"
         >
           <ChevronLeft size={20} /> {/* Chevron Left icon */}
           <span>Back to Home</span>
