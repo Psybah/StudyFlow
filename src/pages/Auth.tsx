@@ -4,6 +4,7 @@ import { Auth as SupabaseAuth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/integrations/supabase/client";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { ChevronLeft } from "lucide-react"; // Import Chevron Left icon
 import type { AuthError, AuthApiError } from "@supabase/supabase-js";
 
 const Auth = () => {
@@ -55,12 +56,13 @@ const Auth = () => {
             providers={[]}
           />
         </div>
-        {/* Back button */}
+        {/* Back button with Chevron Left icon */}
         <button 
           onClick={() => navigate("/")} 
-          className="mt-4 px-4 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-700"
+          className="mt-4 px-4 py-2 bg-primary-foreground hover:bg-primary/90 text-white rounded-full flex items-center space-x-2"
         >
-          Back to Home
+          <ChevronLeft size={20} /> {/* Chevron Left icon */}
+          <span>Back to Home</span>
         </button>
       </div>
     </div>
