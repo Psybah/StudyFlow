@@ -29,8 +29,8 @@ const CourseMaterials = () => {
       {!isMobile && <div className="w-64 transition-all duration-300" />}
       <SidebarNav />
       
-      <main className="flex-1 overflow-y-auto p-6 md:p-12 pb-24 md:pb-12">
-        <div className="container mx-auto space-y-8">
+      <main className="flex-1 overflow-y-auto p-4 md:p-8 pb-24 md:pb-12">
+        <div className="mx-auto space-y-8 max-w-5xl">
           <MaterialsList 
             materials={materials || []} 
             onAddClick={() => setIsAddFormOpen(true)} 

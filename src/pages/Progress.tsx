@@ -46,9 +46,9 @@ const Progress = () => {
       <SidebarNav />
       
       <main className="flex-1 overflow-y-auto p-6 md:p-12 pb-24 md:pb-12">
-        <div className="container mx-auto space-y-8">
+        <div className="mx-auto space-y-8">
           <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold text-primary">Progress</h1>
+            <h1 className="text-3xl font-bold">Progress</h1>
             <Select value={timeframe} onValueChange={setTimeframe}>
               <SelectTrigger className="w-32">
                 <SelectValue placeholder="Select timeframe" />

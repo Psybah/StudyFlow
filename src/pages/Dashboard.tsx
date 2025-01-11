@@ -29,16 +29,18 @@ interface Task {
 }
 
 const motivationalQuotes = [
-  "Success is not final, failure is not fatal: it is the courage to continue that counts.",
-  "Education is the passport to the future, for tomorrow belongs to those who prepare for it today.",
-  "The beautiful thing about learning is that no one can take it away from you.",
+  "Books and all forms of writing have always been objects of terror to those who seek to suppress the truth and knowledge. - Wole Soyinka",
+  "To succeed in life, education is a necessity, but more importantly, it is the character you build through that process. - Chinua Achebe",
+  "Stories have been used to dispossess and to malign, but stories can also be used to empower and to humanize. - Chimamanda Ngozi Adichie",
+  "Education is not just about the acquisition of knowledge but about the transformation of society through disciplined and enlightened minds. - Grace Alele-Williams",
+  "Development is about learning and applying knowledge to improve the quality of life. It starts with the courage to dream and plan. - Adebayo Adedeji"
 ];
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [studyPlan, setStudyPlan] = useState<StudyPlan | null>(null);
   const [loading, setLoading] = useState(true);
-  const [quote, setQuote] = useState("");
+  const [quote, setQuote] = useState(motivationalQuotes[0]);
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
@@ -47,14 +49,14 @@ const Dashboard = () => {
     queryFn: async () => {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      
+
       const { data, error } = await supabase
         .from("reminders")
         .select("*")
         .gte("due_date", today.toISOString())
         .lt("due_date", new Date(today.getTime() + 24 * 60 * 60 * 1000).toISOString())
         .order("due_date", { ascending: true });
-      
+
       if (error) throw error;
 
       // Map reminders to Task interface
@@ -64,13 +66,21 @@ const Dashboard = () => {
         due_date: reminder.due_date || "",
         status: reminder.status || "pending"
       }));
-      
+
       return mappedTasks;
     },
   });
 
   useEffect(() => {
-    setQuote(motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]);
+    const interval = setInterval(() => {
+      setQuote(prev => {
+        const currentIndex = motivationalQuotes.indexOf(prev);
+        const nextIndex = (currentIndex + 1) % motivationalQuotes.length;
+        return motivationalQuotes[nextIndex];
+      });
+    }, 7000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -81,7 +91,7 @@ const Dashboard = () => {
           navigate('/');
           return;
         }
-        
+
         const { data: studyPlanData, error: studyPlanError } = await supabase
           .from('study_plans')
           .select('*')
@@ -131,8 +141,8 @@ const Dashboard = () => {
 
         <main className="flex-1 overflow-y-auto p-6 md:p-12 pb-24 md:pb-12">
           <div className="max-w-4xl mx-auto space-y-8">
-            <DashboardGreeting nickname={studyPlan?.nickname} quote={quote} />
-            
+            <DashboardGreeting nickname={studyPlan?.nickname} quote={<span className="text-sm italic">{quote}</span>} />
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">

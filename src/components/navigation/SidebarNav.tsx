@@ -25,7 +25,7 @@ const SidebarNav = () => {
 
   return (
     <nav className={`hidden md:flex flex-col h-screen bg-[#FEF7CD] shadow-lg text-background-darker fixed left-0 top-0 transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'}`}>
-      <div className="flex flex-col space-y-2 p-4 flex-grow">
+      <div className="flex flex-col space-y-2 p-4 flex-grow pt-20">
         <Button
           variant="ghost"
           className={`w-full justify-start text-background-darker hover:bg-background-darker/10 ${isCollapsed ? 'px-2' : ''}`}
@@ -80,7 +80,7 @@ const SidebarNav = () => {
       <Button
         variant="ghost"
         size="icon"
-        className="absolute -right-4 top-4 bg-[#FEF7CD] rounded-full shadow-md"
+        className="absolute -right-4 top-40 bg-[#FEF7CD] rounded-full shadow-md"
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
         {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}

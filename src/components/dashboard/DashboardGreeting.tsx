@@ -14,7 +14,7 @@ const DashboardGreeting = ({ nickname, quote }: DashboardGreetingProps) => {
           <GraduationCap className="h-8 w-8 text-primary" />
           <div>
             <CardTitle className="text-3xl">
-              Welcome back, {nickname || 'Student'}! 🎓
+              Welcome back, {nickname || 'Student'}! 
             </CardTitle>
             <CardDescription className="text-lg mt-2">
               Let's make progress on your study goals today.
