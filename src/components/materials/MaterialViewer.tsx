@@ -32,40 +32,46 @@ interface MaterialViewerProps {
 
 const MaterialViewer = ({ material, isOpen, onOpenChange }: MaterialViewerProps) => {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    if (material) {
+    if (material && isOpen) {
       fetchNotes();
     }
-  }, [material]);
+  }, [material, isOpen]);
 
   const fetchNotes = async () => {
     if (!material) return;
+    setIsLoading(true);
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
-    const { data, error } = await supabase
-      .from("material_notes")
-      .select("*")
-      .eq("material_id", material.id)
-      .eq("user_id", user.id);
+      const { data, error } = await supabase
+        .from("material_notes")
+        .select("*")
+        .eq("material_id", material.id)
+        .eq("user_id", user.id);
 
-    if (error) {
+      if (error) throw error;
+      setNotes(data || []);
+    } catch (error: any) {
       toast({
         title: "Error fetching notes",
         description: error.message,
         variant: "destructive",
       });
-    } else {
-      setNotes(data || []);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const addNote = async () => {
     if (!material) return;
+    setIsLoading(true);
 
     try {
       const { data: { user } } = await supabase.auth.getUser();
@@ -83,23 +89,31 @@ const MaterialViewer = ({ material, isOpen, onOpenChange }: MaterialViewerProps)
           content: "",
           position_x: randomX,
           position_y: randomY,
+          is_minimized: false
         })
         .select()
         .single();
 
       if (error) throw error;
-
       setNotes([...notes, data]);
+      
+      toast({
+        title: "Success",
+        description: "Note added successfully",
+      });
     } catch (error: any) {
       toast({
         title: "Error adding note",
         description: error.message,
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const deleteNote = async (noteId: string) => {
+    setIsLoading(true);
     try {
       const { error } = await supabase
         .from("material_notes")
@@ -107,31 +121,34 @@ const MaterialViewer = ({ material, isOpen, onOpenChange }: MaterialViewerProps)
         .eq("id", noteId);
 
       if (error) throw error;
-
       setNotes(notes.filter((note) => note.id !== noteId));
+      
+      toast({
+        title: "Success",
+        description: "Note deleted successfully",
+      });
     } catch (error: any) {
       toast({
         title: "Error deleting note",
         description: error.message,
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-full md:max-w-7xl h-[80vh] p-0 overflow-y-auto">
-        <DialogTitle className="text-lg md:text-xl p-4 md:p-6 border-b">
-          {material?.title}
-        </DialogTitle>
-        <div className="flex flex-col md:flex-row h-full gap-4 p-4 md:p-6">
+      <DialogContent className="max-w-full md:max-w-7xl h-[90vh] p-0 overflow-y-auto">
+        <div className="flex flex-col md:flex-row h-full gap-4 p-4">
           <div className="flex-1 relative overflow-hidden">
             {material?.file_url && (
               <iframe
                 src={material.file_url}
                 className="w-full h-full"
                 title={material.title}
-                style={{ minHeight: isMobile ? '50vh' : 'auto' }}
+                style={{ minHeight: isMobile ? '70vh' : 'auto' }}
               />
             )}
             {notes.map((note) => (
@@ -145,9 +162,13 @@ const MaterialViewer = ({ material, isOpen, onOpenChange }: MaterialViewerProps)
               />
             ))}
           </div>
-          <div className="w-full md:w-80 space-y-4 pb-5 md:pb-0">
+          <div className="w-full md:w-80 space-y-4 pt-10 pb-5 md:pb-0">
             <div className="flex flex-row md:flex-col gap-4">
-              <Button onClick={addNote} className="flex-1">
+              <Button 
+                onClick={addNote} 
+                className=" flex-1"
+                disabled={isLoading}
+              >
                 <Plus className="mr-2 h-4 w-4" />
                 Add Note
               </Button>

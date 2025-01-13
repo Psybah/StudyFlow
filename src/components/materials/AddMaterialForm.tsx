@@ -160,7 +160,7 @@ const AddMaterialForm = ({ isOpen, onClose, onSuccess }: AddMaterialFormProps) =
                   type="file"
                   accept=".pdf,.doc,.docx"
                   onChange={handleFileChange}
-                  className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                  className="file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
                 />
                 {selectedFile && (
                   <FileText className="h-5 w-5 text-gray-500" />
