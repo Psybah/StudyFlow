@@ -51,6 +51,85 @@ export type Database = {
         }
         Relationships: []
       }
+      material_notes: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          is_minimized: boolean | null
+          material_id: string | null
+          position_x: number
+          position_y: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          is_minimized?: boolean | null
+          material_id?: string | null
+          position_x?: number
+          position_y?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          is_minimized?: boolean | null
+          material_id?: string | null
+          position_x?: number
+          position_y?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "material_notes_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "course_materials"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quiz_results: {
+        Row: {
+          created_at: string
+          id: string
+          material_id: string | null
+          score: number
+          total_questions: number
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          material_id?: string | null
+          score: number
+          total_questions: number
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          material_id?: string | null
+          score?: number
+          total_questions?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_results_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "course_materials"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reminders: {
         Row: {
           category: string | null

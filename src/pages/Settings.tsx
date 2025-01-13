@@ -1,22 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import AccountSettings from "@/components/settings/AccountSettings";
-import NotificationSettings from "@/components/settings/NotificationSettings";
-import StudyPreferences from "@/components/settings/StudyPreferences";
-import DangerZone from "@/components/settings/DangerZone";
 import { useIsMobile } from "@/hooks/use-mobile";
 import SidebarNav from "@/components/navigation/SidebarNav";
 import MobileNav from "@/components/navigation/MobileNav";
-import { FormData, StudyStyle, PreferredTime, NotificationType } from "@/types/settings";
+import SettingsHeader from "@/components/settings/SettingsHeader";
+import SettingsContent from "@/components/settings/SettingsContent";
+import { FormData, StudyStyle, PreferredTime } from "@/types/settings";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -26,14 +17,37 @@ const Settings = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-    studyStyle: "pomodoro" as StudyStyle,
-    preferredTime: "morning" as PreferredTime,
+    studyStyle: "pomodoro",
+    preferredTime: "morning",
     notifications: {
       reminders: true,
       progress: true,
       tips: true,
     },
   });
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate("/auth");
+        return;
+      }
+
+      const { user } = session;
+      if (user?.email) {
+        setFormData(prev => ({
+          ...prev,
+          email: user.email || "",
+          name: user.user_metadata.name || "",
+          studyStyle: user.user_metadata.study_style || "pomodoro",
+          preferredTime: user.user_metadata.preferred_time || "morning",
+        }));
+      }
+    };
+
+    checkSession();
+  }, [navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,7 +57,7 @@ const Settings = () => {
     }));
   };
 
-  const handleNotificationToggle = (type: NotificationType) => {
+  const handleNotificationToggle = (type: keyof FormData["notifications"]) => {
     setFormData((prev) => ({
       ...prev,
       notifications: {
@@ -86,7 +100,7 @@ const Settings = () => {
         title: "Settings updated",
         description: "Your changes have been saved successfully.",
       });
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
@@ -110,7 +124,7 @@ const Settings = () => {
         title: "Account deleted",
         description: "Your account has been successfully deleted.",
       });
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
@@ -127,58 +141,17 @@ const Settings = () => {
         {!isMobile && <SidebarNav />}
         <main className="flex-1 overflow-y-auto p-6 md:p-12 md:ml-64">
           <div className="container max-w-4xl space-y-8">
-            <h1 className="text-3xl font-bold">Settings</h1>
-            
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="account">
-                <AccordionTrigger>Account Settings</AccordionTrigger>
-                <AccordionContent>
-                  <AccountSettings
-                    name={formData.name}
-                    email={formData.email}
-                    onInputChange={handleInputChange}
-                  />
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="notifications">
-                <AccordionTrigger>Notification Preferences</AccordionTrigger>
-                <AccordionContent>
-                  <NotificationSettings
-                    notifications={formData.notifications}
-                    onNotificationToggle={handleNotificationToggle}
-                  />
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="personalization">
-                <AccordionTrigger>Personalization</AccordionTrigger>
-                <AccordionContent>
-                  <StudyPreferences
-                    studyStyle={formData.studyStyle}
-                    preferredTime={formData.preferredTime}
-                    onStudyStyleChange={handleStudyStyleChange}
-                    onPreferredTimeChange={handlePreferredTimeChange}
-                  />
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="privacy">
-                <AccordionTrigger>Privacy & Security</AccordionTrigger>
-                <AccordionContent>
-                  <DangerZone onDeleteAccount={handleDeleteAccount} />
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            <div className="sticky bottom-4 flex justify-end bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 p-4 rounded-lg shadow-lg">
-              <Button
-                onClick={handleSaveChanges}
-                disabled={isLoading}
-              >
-                {isLoading ? "Saving..." : "Save Changes"}
-              </Button>
-            </div>
+            <SettingsHeader />
+            <SettingsContent
+              formData={formData}
+              isLoading={isLoading}
+              onInputChange={handleInputChange}
+              onNotificationToggle={handleNotificationToggle}
+              onStudyStyleChange={handleStudyStyleChange}
+              onPreferredTimeChange={handlePreferredTimeChange}
+              onSaveChanges={handleSaveChanges}
+              onDeleteAccount={handleDeleteAccount}
+            />
           </div>
         </main>
       </div>

@@ -66,12 +66,22 @@ const Reminders = () => {
           <SidebarNav />
         </aside>
 
-        <main className="flex-1 overflow-y-auto p-8">
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <h1 className="text-3xl font-bold">Reminders</h1>
-              <div className="flex items-center gap-4 w-full md:w-auto">
-                <div className="relative flex-1 md:w-64">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+          <div className="max-w-6xl mx-auto space-y-6">
+            <div className="flex flex-col space-y-4">
+              <div className="flex justify-between items-center">
+                <h1 className="text-2xl md:text-3xl font-bold">Reminders</h1>
+                <Button
+                  onClick={() => setIsAddModalOpen(true)}
+                  className="whitespace-nowrap"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Reminder
+                </Button>
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 h-4 w-4" />
                   <Input
                     type="text"
@@ -81,9 +91,9 @@ const Reminders = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-col md:flex-row">
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="w-[130px]">
+                    <SelectTrigger className="w-full md:w-[130px]">
                       <SelectValue placeholder="Status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -94,7 +104,7 @@ const Reminders = () => {
                     </SelectContent>
                   </Select>
                   <Select value={priorityFilter} onValueChange={setPriorityFilter}>
-                    <SelectTrigger className="w-[130px]">
+                    <SelectTrigger className="w-full md:w-[130px]">
                       <SelectValue placeholder="Priority" />
                     </SelectTrigger>
                     <SelectContent>
@@ -105,13 +115,6 @@ const Reminders = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button
-                  onClick={() => setIsAddModalOpen(true)}
-                  className="whitespace-nowrap"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Reminder
-                </Button>
               </div>
             </div>
 

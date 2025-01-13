@@ -3,7 +3,7 @@ import { GraduationCap } from "lucide-react";
 
 interface DashboardGreetingProps {
   nickname: string | null;
-  quote: string;
+  quote: string | React.ReactNode;
 }
 
 const DashboardGreeting = ({ nickname, quote }: DashboardGreetingProps) => {
@@ -22,7 +22,7 @@ const DashboardGreeting = ({ nickname, quote }: DashboardGreetingProps) => {
           </div>
         </div>
         <CardDescription className="text-lg italic border-l-4 border-primary pl-4 mt-4">
-          "{quote}"
+          {quote}
         </CardDescription>
       </CardHeader>
     </Card>

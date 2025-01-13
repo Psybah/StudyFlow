@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Check, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,17 +22,34 @@ import { supabase } from "@/integrations/supabase/client";
 interface StudyPlanFormProps {
   isOpen: boolean;
   onClose: () => void;
+  initialData?: {
+    nickname: string;
+    courses: string[];
+    academic_goals: string[];
+    preferred_study_times: string[];
+    study_style: string;
+  };
 }
 
-const StudyPlanForm = ({ isOpen, onClose }: StudyPlanFormProps) => {
+const StudyPlanForm = ({ isOpen, onClose, initialData }: StudyPlanFormProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState("");
-  const [courses, setCourses] = useState<string[]>([""]);
-  const [selectedTimes, setSelectedTimes] = useState<string[]>([]);
-  const [academicGoal, setAcademicGoal] = useState("");
-  const [studyStyle, setStudyStyle] = useState("");
+  const [nickname, setNickname] = useState(initialData?.nickname || "");
+  const [courses, setCourses] = useState<string[]>(initialData?.courses || [""]);
+  const [selectedTimes, setSelectedTimes] = useState<string[]>(initialData?.preferred_study_times || []);
+  const [academicGoal, setAcademicGoal] = useState(initialData?.academic_goals?.[0] || "");
+  const [studyStyle, setStudyStyle] = useState(initialData?.study_style || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (initialData) {
+      setNickname(initialData.nickname);
+      setCourses(initialData.courses);
+      setSelectedTimes(initialData.preferred_study_times);
+      setAcademicGoal(initialData.academic_goals[0]);
+      setStudyStyle(initialData.study_style);
+    }
+  }, [initialData]);
 
   const handleAddCourse = () => {
     setCourses([...courses, ""]);
@@ -57,9 +74,9 @@ const StudyPlanForm = ({ isOpen, onClose }: StudyPlanFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { session } } = await supabase.auth.getSession();
       
-      if (!user) {
+      if (!session) {
         toast({
           title: "Error",
           description: "Please sign in to create a study plan.",
@@ -68,29 +85,45 @@ const StudyPlanForm = ({ isOpen, onClose }: StudyPlanFormProps) => {
         return;
       }
 
-      const { error } = await supabase.from('study_plans').insert({
-        user_id: user.id,
+      const studyPlanData = {
+        user_id: session.user.id,
         nickname,
         academic_goals: [academicGoal],
         courses: courses.filter(course => course.trim() !== ""),
         preferred_study_times: selectedTimes,
         study_style: studyStyle,
-      });
+      };
+
+      let error;
+      if (initialData) {
+        // Update existing study plan
+        const { error: updateError } = await supabase
+          .from('study_plans')
+          .update(studyPlanData)
+          .eq('user_id', session.user.id);
+        error = updateError;
+      } else {
+        // Create new study plan
+        const { error: insertError } = await supabase
+          .from('study_plans')
+          .insert(studyPlanData);
+        error = insertError;
+      }
 
       if (error) throw error;
 
       toast({
-        title: "Study Plan Created!",
-        description: "Your personalized study plan is ready.",
+        title: initialData ? "Study Plan Updated!" : "Study Plan Created!",
+        description: initialData ? "Your study plan has been updated." : "Your personalized study plan is ready.",
       });
       
       onClose();
       navigate("/dashboard");
     } catch (error) {
-      console.error('Error creating study plan:', error);
+      console.error('Error with study plan:', error);
       toast({
         title: "Error",
-        description: "Failed to create study plan. Please try again.",
+        description: `Failed to ${initialData ? 'update' : 'create'} study plan. Please try again.`,
         variant: "destructive",
       });
     } finally {
@@ -103,7 +136,7 @@ const StudyPlanForm = ({ isOpen, onClose }: StudyPlanFormProps) => {
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center">
-            Let's Customize Your Study Plan!
+            {initialData ? "Update Your Study Plan" : "Let's Customize Your Study Plan!"}
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-6 py-4">

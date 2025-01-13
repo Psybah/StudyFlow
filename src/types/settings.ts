@@ -1,5 +1,5 @@
-export type StudyStyle = "pomodoro" | "continuous" | "flexible";
-export type PreferredTime = "morning" | "afternoon" | "evening";
+export type StudyStyle = "pomodoro" | "timeblocking" | "spaced" | "active" | "passive";
+export type PreferredTime = "morning" | "afternoon" | "evening" | "night";
 export type NotificationType = "reminders" | "progress" | "tips";
 
 export interface FormData {

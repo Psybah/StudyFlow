@@ -20,7 +20,7 @@ serve(async (req) => {
       throw new Error('Valid content is required');
     }
 
-    console.log('Generating summary for content:', content.substring(0, 100) + '...');
+    console.log('Generating quiz for content:', content.substring(0, 100) + '...');
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -33,11 +33,11 @@ serve(async (req) => {
         messages: [
           {
             role: 'system',
-            content: 'You are a helpful assistant that generates concise summaries of educational content. Keep the summary clear and focused on the main points.'
+            content: 'You are a helpful assistant that generates multiple-choice quiz questions based on provided content. Generate 3 questions with 4 options each, with one correct answer. Return the response in JSON format with the following structure: { "questions": [{ "question": "...", "options": ["...", "...", "...", "..."], "correctAnswer": "..." }] }'
           },
           {
             role: 'user',
-            content: `Please summarize the following content: ${content}`
+            content: content
           }
         ],
       }),
@@ -46,21 +46,6 @@ serve(async (req) => {
     if (!response.ok) {
       const errorText = await response.text();
       console.error('OpenAI API error:', errorText);
-      
-      // Check for quota exceeded error
-      if (errorText.includes('insufficient_quota')) {
-        return new Response(
-          JSON.stringify({ 
-            error: 'OpenAI API quota exceeded. Please try again later or contact support.',
-            details: 'Quota exceeded'
-          }),
-          { 
-            status: 429,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-          }
-        );
-      }
-      
       throw new Error(`OpenAI API error: ${response.status} - ${errorText}`);
     }
 
@@ -71,29 +56,14 @@ serve(async (req) => {
       throw new Error('Invalid response from OpenAI');
     }
 
-    const summary = data.choices[0].message.content;
+    const quizData = JSON.parse(data.choices[0].message.content);
 
     return new Response(
-      JSON.stringify({ summary }),
+      JSON.stringify({ questions: quizData.questions }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
-    console.error('Error in summarize-material function:', error);
-    
-    // Determine if it's a quota error
-    if (error.message?.includes('insufficient_quota')) {
-      return new Response(
-        JSON.stringify({ 
-          error: 'OpenAI API quota exceeded. Please try again later or contact support.',
-          details: 'Quota exceeded'
-        }),
-        { 
-          status: 429,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      );
-    }
-    
+    console.error('Error in generate-quiz function:', error);
     return new Response(
       JSON.stringify({ error: error.message }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
