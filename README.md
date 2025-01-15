@@ -1,91 +1,110 @@
-# StudyFlow
+# StudyFlow 📚
 
 A modern and personalized study planner tailored for Nigerian university students to organize, plan, and optimize their academic workflows.
 
+## 🌟 Overview
+
+StudyFlow is designed to help Nigerian university students manage their academic life more effectively. It provides a comprehensive suite of tools for organizing course materials, tracking progress, setting reminders, and creating personalized study plans.
+
 ## 🚀 Features
 
-- **Personalized Study Plans**: Users can input preferences like study styles, courses, and goals to generate tailored study plans.
-- **Task Management**: An interactive dashboard to add, view, and manage daily academic tasks and reminders.
-- **Course Materials**: Easily access, upload, and manage course-related content in one place.
-- **Progress Tracking**: Monitor your academic progress visually and in real-time.
-- **Reminders**: Stay on top of deadlines and important tasks with timely reminders.
-- **Settings Management**: Customize your experience and manage account settings effortlessly.
+### Core Features
+- **📝 Course Materials Management**
+  - Upload and organize study materials
+  - Add sticky notes to materials
+  - Coming soon: AI-powered summaries and quizzes
 
+- **⏰ Smart Reminders**
+  - Set and manage academic deadlines
+  - Recurring reminder support
+  - Priority-based organization
 
-## 🔧 Built With
+- **📊 Progress Tracking**
+  - Visual progress indicators
+  - Performance analytics
+  - Study session tracking
 
-- **React.js**: For building a fast and dynamic user interface.
-- **TypeScript**: Ensuring type safety and scalability.
-- **ShadCN UI**: For an elegant, pre-styled component library.
-- **Lucide**: Icon library for visually engaging elements.
-- **Supabase**: For managing authentication and backend data storage.
+- **📅 Study Planning**
+  - Personalized study schedules
+  - Customizable study preferences
+  - Academic goal setting
 
-## 🗂 Folder Structure
+### Additional Features
+- **🎯 Task Management**: Track and organize academic tasks
+- **🔔 Smart Notifications**: Stay updated with important deadlines
+- **📱 Responsive Design**: Access from any device
 
-```
-src/
-├── components/            # Reusable UI components.
-├── hooks/                 # Custom React hooks for app functionality.
-├── integrations/supabase  # Supabase client setup for database and authentication.
-├── lib/                   # Utility functions and helpers.
-├── pages/                 # Page components representing different routes.
-├── types/                 # TypeScript interfaces and type definitions.
-├── App.tsx                # Main application component.
-├── main.tsx               # Entry point for React rendering.
-```
+## 🛠️ Technology Stack
 
-## 🏃‍♀️ Getting Started
+- **Frontend**
+  - React.js with TypeScript
+  - Tailwind CSS for styling
+  - ShadcnUI component library
+  - Lucide icons
+
+- **Backend & Infrastructure**
+  - Supabase for backend services
+  - Real-time database
+  - Authentication system
+  - File storage
+  - Edge Functions for AI features
+
+## 🏃‍♂️ Getting Started
 
 ### Prerequisites
-
 - Node.js (v16 or higher)
 - npm or yarn
+- Git
 
 ### Installation
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/Psybah/StudyFlow.git
    cd StudyFlow
    ```
 
 2. Install dependencies:
-
    ```bash
    npm install
    ```
 
 3. Start the development server:
-
    ```bash
    npm run dev
    ```
 
-### Scripts
+## 🎯 Usage
 
-- `npm run dev` - Starts the development server.
-- `npm run build` - Builds the project for production.
-- `npm run lint` - Runs linting checks.
+1. **Sign Up/Login**: Create an account or log in to access your personalized dashboard
+2. **Add Materials**: Upload course materials and organize them by subject
+3. **Create Study Plan**: Set up your study preferences and schedule
+4. **Track Progress**: Monitor your academic progress through the progress page
+5. **Set Reminders**: Create reminders for important deadlines and tasks
 
-## 🎨 Design Principles
+## 🤝 Contributing
 
-- **Accessibility First**: Designed to cater to all students.
-- **Relatability**: Built to resonate with Nigerian university culture.
-- **Simplicity**: Easy to navigate, even during stressful exam periods.
+We welcome contributions! Please follow these steps:
 
-## 📈 Future Features
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-- **Integration with Academic Calendars**: Automatically sync with university schedules for better planning.
-- **Gamified Study Incentives**: Introduce badges, points, and rewards to motivate students.
-- **Collaboration Tools**: Enable group study planning and sharing tasks among peers.
-- **AI-Powered Features**: Generate summaries of course materials and provide quizzes to aid comprehension.
 
-## 🤝 Contributors
+## 🙏 Acknowledgments
 
-- **Abiodun Oluwamurewa** - Fullstack Developer
+- **Abiodun Oluwamurewa** - Lead Developer
 - **Leslie Young** - Frontend Developer
+- All contributors who have helped shape StudyFlow
 
-## 🌟 Support
+## 📞 Support
 
-If you find this project useful, give it a ⭐️ and share it with your network!
+For support, please:
+- Open an issue in the repository
+- Contact us through our email (`abiodunoluwamurewa@gmail.com`)
+
+---
+
+Built with ❤️ for Nigerian university students

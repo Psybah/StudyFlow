@@ -16,7 +16,7 @@ serve(async (req) => {
   try {
     const { content } = await req.json();
 
-    if (!content || typeof content !== 'string') {
+    if (!content || typeof content !== 'string' || !content.trim()) {
       throw new Error('Valid content is required');
     }
 
@@ -33,13 +33,15 @@ serve(async (req) => {
         messages: [
           {
             role: 'system',
-            content: 'You are a helpful assistant that generates concise summaries of educational content. Keep the summary clear and focused on the main points.'
+            content: 'You are a helpful assistant that generates concise, clear summaries of educational content. Focus on the main points and key takeaways. Keep the summary clear and well-structured.'
           },
           {
             role: 'user',
-            content: `Please summarize the following content: ${content}`
+            content: `Please provide a concise summary of the following educational content: ${content}`
           }
         ],
+        temperature: 0.7,
+        max_tokens: 500,
       }),
     });
 
@@ -47,7 +49,6 @@ serve(async (req) => {
       const errorText = await response.text();
       console.error('OpenAI API error:', errorText);
       
-      // Check for quota exceeded error
       if (errorText.includes('insufficient_quota')) {
         return new Response(
           JSON.stringify({ 
@@ -80,7 +81,6 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error in summarize-material function:', error);
     
-    // Determine if it's a quota error
     if (error.message?.includes('insufficient_quota')) {
       return new Response(
         JSON.stringify({ 

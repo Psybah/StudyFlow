@@ -17,8 +17,8 @@ const Settings = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
-    studyStyle: "pomodoro",
-    preferredTime: "morning",
+    studyStyle: "pomodoro" as StudyStyle,
+    preferredTime: "morning" as PreferredTime,
     notifications: {
       reminders: true,
       progress: true,
@@ -40,8 +40,8 @@ const Settings = () => {
           ...prev,
           email: user.email || "",
           name: user.user_metadata.name || "",
-          studyStyle: user.user_metadata.study_style || "pomodoro",
-          preferredTime: user.user_metadata.preferred_time || "morning",
+          studyStyle: (user.user_metadata.study_style as StudyStyle) || "pomodoro",
+          preferredTime: (user.user_metadata.preferred_time as PreferredTime) || "morning",
         }));
       }
     };
