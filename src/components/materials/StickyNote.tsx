@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Minimize2, Maximize2, X } from "lucide-react";
+import { Minimize2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -10,15 +10,25 @@ interface StickyNoteProps {
   id: string;
   content: string;
   position: { x: number; y: number };
+  isMinimized?: boolean;
   materialId: string;
   onDelete: (id: string) => void;
+  onPositionChange: (x: number, y: number) => void;
+  onMinimize: () => void;
 }
 
-const StickyNote = ({ id, content: initialContent, position, materialId, onDelete }: StickyNoteProps) => {
+const StickyNote = ({ 
+  id, 
+  content: initialContent, 
+  position,
+  materialId, 
+  onDelete,
+  onPositionChange,
+  onMinimize
+}: StickyNoteProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [position_, setPosition] = useState(position);
   const [content, setContent] = useState(initialContent);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const { toast } = useToast();
 
@@ -26,12 +36,7 @@ const StickyNote = ({ id, content: initialContent, position, materialId, onDelet
     const updateNote = async () => {
       const { error } = await supabase
         .from("material_notes")
-        .update({
-          content,
-          position_x: position_.x,
-          position_y: position_.y,
-          is_minimized: isMinimized,
-        })
+        .update({ content })
         .eq("id", id);
 
       if (error) {
@@ -45,7 +50,7 @@ const StickyNote = ({ id, content: initialContent, position, materialId, onDelet
 
     const debounceTimeout = setTimeout(updateNote, 500);
     return () => clearTimeout(debounceTimeout);
-  }, [content, position_, isMinimized, id, toast]);
+  }, [content, id, toast]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -57,15 +62,17 @@ const StickyNote = ({ id, content: initialContent, position, materialId, onDelet
 
   const handleMouseMove = (e: MouseEvent) => {
     if (isDragging) {
-      setPosition({
-        x: e.clientX - dragOffset.x,
-        y: e.clientY - dragOffset.y,
-      });
+      const newX = e.clientX - dragOffset.x;
+      const newY = e.clientY - dragOffset.y;
+      setPosition({ x: newX, y: newY });
     }
   };
 
   const handleMouseUp = () => {
-    setIsDragging(false);
+    if (isDragging) {
+      setIsDragging(false);
+      onPositionChange(position_.x, position_.y);
+    }
   };
 
   useEffect(() => {
@@ -81,7 +88,7 @@ const StickyNote = ({ id, content: initialContent, position, materialId, onDelet
 
   return (
     <Card
-      className={`absolute shadow-lg ${isMinimized ? "w-12 h-12" : "w-64"}`}
+      className="absolute shadow-lg w-64"
       style={{
         transform: `translate(${position_.x}px, ${position_.y}px)`,
         cursor: isDragging ? "grabbing" : "grab",
@@ -95,13 +102,9 @@ const StickyNote = ({ id, content: initialContent, position, materialId, onDelet
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => setIsMinimized(!isMinimized)}
+          onClick={onMinimize}
         >
-          {isMinimized ? (
-            <Maximize2 className="h-4 w-4" />
-          ) : (
-            <Minimize2 className="h-4 w-4" />
-          )}
+          <Minimize2 className="h-4 w-4" />
         </Button>
         <Button
           variant="ghost"
@@ -111,14 +114,12 @@ const StickyNote = ({ id, content: initialContent, position, materialId, onDelet
           <X className="h-4 w-4" />
         </Button>
       </div>
-      {!isMinimized && (
-        <Textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="w-full h-32 resize-none border-0 bg-yellow-50"
-          placeholder="Type your note here..."
-        />
-      )}
+      <Textarea
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        className="w-full h-32 resize-none border-0 bg-yellow-50"
+        placeholder="Type your note here..."
+      />
     </Card>
   );
 };

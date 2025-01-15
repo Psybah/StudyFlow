@@ -13,9 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-type StudyStyle = "pomodoro" | "continuous" | "flexible";
-type PreferredTime = "morning" | "afternoon" | "evening";
+import { StudyStyle, PreferredTime } from "@/types/settings";
 
 interface StudyPreferencesProps {
   studyStyle: StudyStyle;
@@ -50,8 +48,10 @@ const StudyPreferences = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="pomodoro">Pomodoro</SelectItem>
-              <SelectItem value="continuous">Continuous</SelectItem>
-              <SelectItem value="flexible">Flexible</SelectItem>
+              <SelectItem value="timeblocking">Time Blocking</SelectItem>
+              <SelectItem value="spaced">Spaced Learning</SelectItem>
+              <SelectItem value="active">Active Learning</SelectItem>
+              <SelectItem value="passive">Passive Learning</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -68,6 +68,7 @@ const StudyPreferences = ({
               <SelectItem value="morning">Morning</SelectItem>
               <SelectItem value="afternoon">Afternoon</SelectItem>
               <SelectItem value="evening">Evening</SelectItem>
+              <SelectItem value="night">Night</SelectItem>
             </SelectContent>
           </Select>
         </div>
