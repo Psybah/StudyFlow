@@ -19,7 +19,6 @@ A modern and personalized study planner tailored for Nigerian university student
 - **ShadCN UI**: For an elegant, pre-styled component library.
 - **Lucide**: Icon library for visually engaging elements.
 - **Supabase**: For managing authentication and backend data storage.
-- **TanStack React Query**: For efficient data fetching and caching.
 
 ## 🗂 Folder Structure
 
@@ -47,8 +46,8 @@ src/
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Psybah/studyflow.git
-   cd studyflow
+   git clone https://github.com/Psybah/StudyFlow.git
+   cd StudyFlow
    ```
 
 2. Install dependencies:
